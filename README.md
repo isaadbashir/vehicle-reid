@@ -21,8 +21,10 @@ Suppose you are working in a **supervised** technique or architechture then to a
 If you are assigned to contribute to a project then here is the process of doing this
 
 1. clone the repo.
-2. create a branch with naming scheme as `feature/YOUR-IMPROVEMENT-OR-FEATURE` e.g. `feature/inception-v4-added-to-models` 
+2. create a branch with naming scheme as `feature/supervised|unsupervised/PROJECT/YOUR-IMPROVEMENT-OR-FEATURE` e.g. `feature/unsupervised/VR-PROUD/inception-v4-added-to-models` 
 the branch name should be self explanatroy.
 3. work on branch and commit often and once done push the changes and create a Pull Request for merge and keep you supervisor
 and co-supervisior as reviewers.
 4. that's it you are done
+
+## DO NOT MERGE YOUR CHANGES DIRECTLY TO THE MASTER WITHOUT PR BEING APPROVED
