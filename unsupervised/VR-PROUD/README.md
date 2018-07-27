@@ -1,4 +1,4 @@
-#Vehicle Re-Identification Using PROgressive Unsupervised Deep Learning
+# Vehicle Re-Identification Using PROgressive Unsupervised Deep Learning
 
 ## Setup
 All our code is implemented in Keras, Tensorflow (Python). Installation instructions are as follows:
