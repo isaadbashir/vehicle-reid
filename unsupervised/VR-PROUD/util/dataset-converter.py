@@ -50,7 +50,7 @@ elif data_order == 'tf':
 hdf5_file = h5py.File(hdf5_path, mode='w')
 
 hdf5_file.create_dataset("train_img", train_shape, np.int8)
-hdf5_file.create_dataset("train_labels", (len(addrs) + 1, total_labels), np.int8)
+hdf5_file.create_dataset("train_labels", (len(addrs), total_labels), np.int8)
 
 printProgressBar(0, len(addrs), prefix='Progress:', suffix='Complete', length=50)
 
@@ -85,6 +85,7 @@ with open(veri_data_file, 'r') as f:
         printProgressBar(i + 1, len(addrs), prefix='Progress:', suffix='Complete', length=50)
         i = i + 1
 
+i = i - 1
 label = to_categorical(lbl)
 hdf5_file["train_labels"][i, ...] = label
 
