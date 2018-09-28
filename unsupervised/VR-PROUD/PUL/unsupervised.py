@@ -20,26 +20,9 @@ from keras.initializers import RandomNormal
 from keras.models import Model
 from keras import backend as K
 from keras.models import load_model
+from keras.utils.io_utils import HDF5Matrix
 
 from sklearn.cluster import KMeans
-
-# dataset
-DATASET = '../dataset/Duke'
-LIST = os.path.join(DATASET, 'train.list')
-TRAIN = os.path.join(DATASET, 'bounding_box_train')
-NUM_CLUSTER = 700
-
-'''
-DATASET = '../dataset/Market'
-LIST = os.path.join(DATASET, 'train.list')
-TRAIN = os.path.join(DATASET, 'bounding_box_train')
-NUM_CLUSTER = 750
-
-DATASET = '../dataset/CUHK03'
-LIST = os.path.join(DATASET, 'train.list')
-TRAIN = os.path.join(DATASET, 'bounding_box_train')
-NUM_CLUSTER = 750
-'''
 
 # learning
 START = 1
@@ -47,6 +30,7 @@ END = 25
 LAMBDA = 0.85
 NUM_EPOCH = 20
 BATCH_SIZE = 16
+NUM_CLUSTER = 401
 
 # session
 config = tf.ConfigProto()
@@ -56,15 +40,12 @@ set_session(sess)
 
 # load data
 unlabeled_images = []
-with open(LIST, 'r') as f:
-  for line in f:
-    line = line.strip()
-    img, lbl = line.split()
-    img = image.load_img(os.path.join(TRAIN, img), target_size=[224, 224])
-    img = image.img_to_array(img)
-    img = np.expand_dims(img, axis=0)
-    img = preprocess_input(img) 
-    unlabeled_images.append(img)
+
+hdf5_path = '../dataset/veri/hdf5/veri-dataset.hdf5'  # address to where you want to save the hdf5 file
+save_best_model = "base-veri-best.hdf5"  # Save the checkpoint in the /output folder
+
+unlabeled_images = HDF5Matrix(hdf5_path, 'train_img')
+
 
 datagen = ImageDataGenerator(featurewise_center=False,
     samplewise_center=False,

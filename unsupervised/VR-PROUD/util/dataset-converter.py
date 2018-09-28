@@ -7,10 +7,10 @@ from keras.applications.resnet50 import preprocess_input
 from keras.preprocessing import image
 from keras.utils.np_utils import to_categorical
 
-hdf5_path = '../dataset/VeRi/hdf5/veri-dataset.hdf5'  # address to where you want to save the hdf5 file
-veri_dataset_path = 'D:/VeRi/image_train/'
-veri_data_file = '../dataset/VeRi/name_train.txt'
-total_labels = 770
+hdf5_path = '../dataset/veri/hdf5/veri-dataset.hdf5'  # address to where you want to save the hdf5 file
+veri_dataset_path = '/home/saad/dataset/VeRi/image_train'
+veri_data_file = '../dataset/veri/name_train_partial.txt'
+total_labels = 401
 
 
 # Print iterations progress
@@ -36,23 +36,23 @@ def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=
 
 
 # read addresses and labels from the 'train' folder
-addrs = glob.glob(os.path.join(veri_dataset_path, '*.jpg'))
+total_images = 20591
 
 data_order = 'tf'  # 'th' for Theano, 'tf' for Tensorflow
 
 # check the order of data and chose proper data shape to save images
 if data_order == 'th':
-    train_shape = (len(addrs), 3, 224, 224)
+    train_shape = (total_images, 3, 224, 224)
 elif data_order == 'tf':
-    train_shape = (len(addrs), 224, 224, 3)
+    train_shape = (total_images, 224, 224, 3)
 
 # open a hdf5 file and create earrays
 hdf5_file = h5py.File(hdf5_path, mode='w')
 
 hdf5_file.create_dataset("train_img", train_shape, np.int8)
-hdf5_file.create_dataset("train_labels", (len(addrs), total_labels), np.int8)
+hdf5_file.create_dataset("train_labels", (total_images, total_labels), np.int8)
 
-printProgressBar(0, len(addrs), prefix='Progress:', suffix='Complete', length=50)
+printProgressBar(0, total_images, prefix='Progress:', suffix='Complete', length=100)
 
 i = 0
 # load data
@@ -82,11 +82,11 @@ with open(veri_data_file, 'r') as f:
         hdf5_file["train_img"][i, ...] = img[None]
         label.append(lbl)
 
-        printProgressBar(i + 1, len(addrs), prefix='Progress:', suffix='Complete', length=50)
+        printProgressBar(i + 1, total_images, prefix='Progress:', suffix='Complete', length=100)
         i = i + 1
 
-i = i - 1
-label = to_categorical(lbl)
-hdf5_file["train_labels"][i, ...] = label
+label = to_categorical(label)
+print("Shape",label.shape)
+hdf5_file["train_labels"][...] = label
 
 hdf5_file.close()
