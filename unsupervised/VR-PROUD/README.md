@@ -29,14 +29,15 @@ and create the train and test list from the dataset and place them under the `/d
 3. Modify `PUL/unsupervised.py` and `PUL/evaluate.py` according to the naming scheme of train and test list to train and evaluate.
 
 
-
-<!--If you find this code useful, consider citing our work:
+Please Site the work using this 
 ```
-@article{fan17unsupervised,
-  author    = {Hehe Fan and Liang Zheng and Yi Yang},
-  title     = {Unsupervised Person Re-identification: Clustering and Fine-tuning},
-  journal   = {arXiv preprint arXiv:1705.10444},
-  year      = {2017}
+@InProceedings{RN52,
+author="Bashir, Raja Muhammad Saad
+and Shahzad, Muhammad
+and Fraz, Muhammad Moazam",
+title="DUPL-VR: Deep Unsupervised Progressive Learning for Vehicle Re-Identification",
+booktitle="Proceedings of the 13th International Symposium on Visual Computing (ISVC)",
+year="2018",
+pages="286--295"
 }
 ```
--->
